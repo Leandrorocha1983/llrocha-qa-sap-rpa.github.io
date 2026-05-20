@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leandro Lima da Rocha – QA Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d0f;
+    --bg2: #111518;
+    --bg3: #181d22;
+    --accent: #00e5a0;
+    --accent2: #0095ff;
+    --accent3: #ff6b35;
+    --text: #e8ece8;
+    --muted: #6a7a7a;
+    --border: #1e2a2a;
+    --card: #13181c;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(10,13,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -150px;
+    pointer-events: none;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    max-width: 640px;
+    color: #8a9a9a;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-contacts {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .contact-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .contact-chip:hover {
+    color: var(--accent);
+    border-color: rgba(0,229,160,0.4);
+    background: rgba(0,229,160,0.05);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 3rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* SKILLS */
+  .skills-bg {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: bottom;
+  }
+
+  .skill-card:hover::before { transform: scaleY(1); }
+  .skill-card:hover {
+    border-color: rgba(0,229,160,0.2);
+    transform: translateY(-2px);
+  }
+
+  .skill-card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    background: rgba(0,229,160,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  .tag.blue {
+    background: rgba(0,149,255,0.08);
+    color: var(--accent2);
+    border-color: rgba(0,149,255,0.2);
+  }
+
+  .tag.orange {
+    background: rgba(255,107,53,0.08);
+    color: var(--accent3);
+    border-color: rgba(255,107,53,0.2);
+  }
+
+  /* EXPERIENCE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .exp-item {
+    position: relative;
+    padding-bottom: 3rem;
+  }
+
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 0.4rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(0,229,160,0.5);
+  }
+
+  .exp-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .exp-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+  }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.25);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .exp-company {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .exp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .exp-list li {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.92rem;
+    color: #8a9a9a;
+    line-height: 1.6;
+  }
+
+  .exp-list li::before {
+    content: '▸';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    font-size: 0.75rem;
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.8rem;
+    transition: border-color 0.2s;
+  }
+
+  .edu-card:hover { border-color: rgba(0,149,255,0.3); }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-institution {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .edu-desc {
+    font-size: 0.88rem;
+    color: #7a8a8a;
+    line-height: 1.6;
+  }
+
+  /* COURSES */
+  .courses-bg {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .course-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+    font-size: 0.88rem;
+    color: #8a9a9a;
+    transition: all 0.2s;
+    position: relative;
+    padding-left: 2.2rem;
+  }
+
+  .course-item::before {
+    content: '✓';
+    position: absolute;
+    left: 0.8rem;
+    top: 1.2rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .course-item:hover {
+    border-color: rgba(0,229,160,0.25);
+    color: var(--text);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .timeline { padding-left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">LLR<span style="color:var(--muted)">·QA</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#formacao">Formação</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="sobre">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Disponível para novos projetos</div>
+    <h1>Leandro<br><span>Lima da Rocha</span></h1>
+    <p class="hero-subtitle">Analista QA · Engenheiro de Qualidade · Automação de Testes</p>
+    <p class="hero-desc">
+      Profissional de QA com ampla experiência em testes manuais, automação, SAP, APIs, Robot Framework, Selenium, Cypress, Appium e metodologias ágeis. Especialista em qualidade ponta a ponta, integração contínua, gestão de testes e validação de processos críticos em ambientes financeiros, ERP e RPA.
+    </p>
+    <div class="hero-contacts">
+      <a href="tel:+5511921066611" class="contact-chip">📱 (11) 92106-6611</a>
+      <a href="mailto:lrocha1983@gmail.com" class="contact-chip">✉ lrocha1983@gmail.com</a>
+      <a href="https://linkedin.com/in/leandro-rocha15546837" class="contact-chip" target="_blank">🔗 LinkedIn</a>
+      <span class="contact-chip">📍 Itapecerica da Serra/SP</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-bg" id="skills">
+  <div class="container">
+    <div class="section-label">Competências Técnicas</div>
+    <h2 class="section-title">Stack & Ferramentas</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🧪</div>
+        <div class="skill-card-title">Tipos de Testes</div>
+        <div class="skill-tags">
+          <span class="tag">Funcional</span>
+          <span class="tag">Integração</span>
+          <span class="tag">Regressão</span>
+          <span class="tag">Aceitação</span>
+          <span class="tag">E2E</span>
+          <span class="tag">Smoke Test</span>
+          <span class="tag">Carga / Stress</span>
+          <span class="tag">Mobile</span>
+          <span class="tag">API</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">⚙️</div>
+        <div class="skill-card-title">Frameworks de Automação</div>
+        <div class="skill-tags">
+          <span class="tag">Selenium</span>
+          <span class="tag">Robot Framework</span>
+          <span class="tag">Cypress</span>
+          <span class="tag">Appium</span>
+          <span class="tag">Behave</span>
+          <span class="tag">Cucumber / BDD</span>
+          <span class="tag">JUnit</span>
+          <span class="tag">REST Assured</span>
+          <span class="tag">JMeter</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">💻</div>
+        <div class="skill-card-title">Linguagens & Banco de Dados</div>
+        <div class="skill-tags">
+          <span class="tag blue">Java</span>
+          <span class="tag blue">Python</span>
+          <span class="tag blue">SQL</span>
+          <span class="tag blue">VBA</span>
+          <span class="tag blue">SAP GUI Scripting</span>
+          <span class="tag blue">Oracle</span>
+          <span class="tag blue">MS SQL</span>
+          <span class="tag blue">Gherkin</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🔧</div>
+        <div class="skill-card-title">DevOps & Gestão</div>
+        <div class="skill-tags">
+          <span class="tag orange">Jenkins</span>
+          <span class="tag orange">GitHub</span>
+          <span class="tag orange">GitLab</span>
+          <span class="tag orange">SonarQube</span>
+          <span class="tag orange">Docker</span>
+          <span class="tag orange">Azure DevOps</span>
+          <span class="tag orange">Jira</span>
+          <span class="tag orange">Zephyr</span>
+          <span class="tag orange">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">📦</div>
+        <div class="skill-card-title">SAP & ERP</div>
+        <div class="skill-tags">
+          <span class="tag">SAP MM</span>
+          <span class="tag">SAP FI</span>
+          <span class="tag">SAP AP/AR</span>
+          <span class="tag">SAP SD</span>
+          <span class="tag">SAP 6.0</span>
+          <span class="tag">ABAP</span>
+          <span class="tag">GUI Scripting</span>
+          <span class="tag">Blueprint</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">📋</div>
+        <div class="skill-card-title">Metodologias & APIs</div>
+        <div class="skill-tags">
+          <span class="tag blue">Scrum</span>
+          <span class="tag blue">Kanban</span>
+          <span class="tag blue">Postman</span>
+          <span class="tag blue">Swagger</span>
+          <span class="tag blue">REST</span>
+          <span class="tag blue">SOAP</span>
+          <span class="tag blue">WSDL</span>
+          <span class="tag blue">BDD</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section id="experiencia">
+  <div class="container">
+    <div class="section-label">Trajetória Profissional</div>
+    <h2 class="section-title">Experiência</h2>
+
+    <div class="timeline">
+
+      <!-- GroupLink One -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Analista de QA / Testes / Automation</span>
+          <span class="exp-period">Out 2023 – Atual</span>
+        </div>
+        <div class="exp-company">GroupLink One · Segmento RPA / Sicredi</div>
+        <ul class="exp-list">
+          <li>Planejar, elaborar e executar testes manuais em soluções de RPA, cobrindo fluxos críticos de negócio.</li>
+          <li>Validar fluxos ponta a ponta, regras de negócio, integrações e cenários de exceção em ambientes complexos.</li>
+          <li>Realizar testes funcionais, regressivos e de aceitação, garantindo cobertura completa das entregas.</li>
+          <li>Identificar, registrar, documentar e acompanhar bugs e inconsistências até sua resolução.</li>
+          <li>Atuar em conjunto com equipes de desenvolvimento, automação e negócios para garantir qualidade nas entregas.</li>
+          <li>Validar automações que interagem com ambientes SAP, incluindo transações, interfaces e integrações.</li>
+          <li>Criar e manter casos de teste, evidências e documentação de qualidade no Zephyr/Jira.</li>
+          <li>Executar testes funcionais, de interface, integração e regressão com cobertura E2E.</li>
+          <li>Apoiar a evolução das práticas de QA e melhoria contínua dos processos de testes.</li>
+          <li>Contribuir com análises críticas sobre impactos das automações nos processos de negócio.</li>
+          <li>Consultas SQL em Oracle e MS SQL via Python; scripts em Behave, Selenium, JMeter e Jenkins.</li>
+          <li>Geração de testes de carga com JMeter integrado ao Grafana para volumetria e stress de ambientes.</li>
+          <li>Configuração de pipelines CI/CD com Jenkins, Docker, SonarQube e Maven.</li>
+        </ul>
+      </div>
+
+      <!-- SAP / Projetos Bancários -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Especialista QA – Projetos SAP / Bancário</span>
+          <span class="exp-period">Diversos períodos</span>
+        </div>
+        <div class="exp-company">IBI Promotora · Grupo Alelo · Givex</div>
+        <ul class="exp-list">
+          <li>Elaboração e validação de scripts de testes unitários e integrados para módulos SAP junto a usuários e clínicas odontológicas.</li>
+          <li>Liderança de equipe de testes, treinamentos e implantação de sistemas em projetos estratégicos.</li>
+          <li>Levantamento de requisitos junto aos usuários e análise de Blueprint; criação de scripts de teste dos módulos SAP.</li>
+          <li>Homologação do módulo MM do SAP 6.0 com testes unitários e integrados no processo de migração da IBI Promotora, empresa do Grupo Alelo.</li>
+          <li>Projeto de implantação do sistema Givex na Alelo: homologação dos módulos AP e AR do SAP 6.0 com testes unitários e integrados.</li>
+          <li>Análise crítica dos impactos das automações nos processos de negócio, garantindo rastreabilidade e conformidade.</li>
+        </ul>
+      </div>
+
+      <!-- Ecommerce/Marketplace -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Engenheiro QA Sr. / QA Chapter Lead</span>
+          <span class="exp-period">Jun 2017 – Mar 2024</span>
+        </div>
+        <div class="exp-company">Segmento: Ecommerce / Marketplace</div>
+        <ul class="exp-list">
+          <li>Liderança dos QAs das equipes de engenharia no desenvolvimento de testes automáticos e melhores práticas de qualidade.</li>
+          <li>QA Chapter Lead dos projetos-chave da empresa: gestão dos QAs e condução da fase de testes E2E.</li>
+          <li>Criador do programa de Mentoria de QA e formações internas para equipes de desenvolvimento.</li>
+          <li>Planejamento e criação de estratégias de testes de software em parceria com a diretoria.</li>
+          <li>Pesquisa e aplicação de novas ferramentas e frameworks de testes em pipelines de CI/CD.</li>
+          <li>Monitoramento do lançamento de novas versões de microsserviços em produção.</li>
+        </ul>
+      </div>
+
+      <!-- Foursys / Bradesco -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Analista de Testes de Software</span>
+          <span class="exp-period">Set 2020 – Jun 2021</span>
+        </div>
+        <div class="exp-company">Foursys Consultoria LTDA · Banco Bradesco / Next – Projeto Direct BTB</div>
+        <ul class="exp-list">
+          <li>Atuação na Squad de Adesão Next2 e Next2 Joy junto ao time de desenvolvimento Core.</li>
+          <li>Levantamento de logs e análise de bugs em produção durante fluxos críticos de adesão.</li>
+          <li>Criação de planos de teste e scripts de testes por sprint; execução de testes manuais em APP Android e iOS.</li>
+          <li>Validação e geração de massa de dados via banco de dados; produção de evidências dos testes executados.</li>
+          <li>Participação ativa em cerimônias Scrum: Daily, Planning, Review e Retrospectiva.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMAÇÃO -->
+<section id="formacao" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">Educação</div>
+    <h2 class="section-title">Formação Acadêmica</h2>
+    <div class="edu-grid">
+
+      <div class="edu-card">
+        <div class="edu-degree">MBA em Arquitetura de Software, Ciência de Dados e Cybersecurity</div>
+        <div class="edu-institution">PUC Campinas – Pós-Graduação Lato Sensu</div>
+        <div class="edu-period">Jan 2026 – Mar 2027 · Em andamento</div>
+        <p class="edu-desc">Arquitetura de Sistemas Distribuídos, Ciência de Dados, Machine Learning, Segurança da Informação, Governança de Dados e Cloud &amp; Edge Computing.</p>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Tecnologia em Análise e Desenvolvimento de Sistemas</div>
+        <div class="edu-institution">Colégio Instituto Presbiteriano Mackenzie</div>
+        <div class="edu-period">Fev 2012 – Jun 2014 · Concluído</div>
+        <p class="edu-desc">Formação técnica sólida em desenvolvimento de sistemas, banco de dados, lógica de programação e engenharia de software.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CURSOS -->
+<section class="courses-bg" id="cursos">
+  <div class="container">
+    <div class="section-label">Capacitação Contínua</div>
+    <h2 class="section-title">Cursos & Certificações</h2>
+    <div class="courses-grid">
+      <div class="course-item">FET – Fundamentos de Engenharia de Testes · RSI Informática</div>
+      <div class="course-item">Automação Selenium / JUnit / Cucumber (Java)</div>
+      <div class="course-item">Azure DevOps – Integração e Entrega Contínua · Udemy</div>
+      <div class="course-item">Appium – Testes Funcionais Android · Udemy</div>
+      <div class="course-item">BDD com Cucumber em Java · Udemy</div>
+      <div class="course-item">Python Full Stack · EBAC</div>
+      <div class="course-item">SAP Academy – Programação ABAP</div>
+      <div class="course-item">SAP Academy – SD (Ka Solution)</div>
+      <div class="course-item">Treinamento em Teste de Software – Iterasys (70h)</div>
+      <div class="course-item">Product Owner · Certificado GFT do Brasil (12h)</div>
+      <div class="course-item">Automação UFT / VBScript</div>
+      <div class="course-item">SQL Server 2008 – Implementação e Manutenção · Ka Solution</div>
+      <div class="course-item">Programador Java – Módulo I · Impactos</div>
+      <div class="course-item">C# e .Net Development · K19</div>
+      <div class="course-item">Lógica Estruturada, COBOL, DB2, CICS · UPNGO</div>
+      <div class="course-item">Inglês Intermediário · Cellep (em andamento)</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container" style="text-align: center;">
+    <div class="section-label" style="justify-content: center;">Entre em contato</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">Vamos conversar?</h2>
+    <p style="color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; font-size: 0.95rem;">
+      Aberto a oportunidades em QA, automação de testes e engenharia de qualidade. Entre em contato para trocarmos ideias.
+    </p>
+    <div class="hero-contacts" style="justify-content: center;">
+      <a href="mailto:lrocha1983@gmail.com" class="contact-chip">✉ lrocha1983@gmail.com</a>
+      <a href="tel:+5511921066611" class="contact-chip">📱 (11) 92106-6611</a>
+      <a href="https://linkedin.com/in/leandro-rocha15546837" class="contact-chip" target="_blank">🔗 LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Leandro Lima da Rocha</div>
+  <div class="footer-meta">QA Engineer · Itapecerica da Serra, SP · 2025</div>
+</footer>
+
+</body>
+</html>
